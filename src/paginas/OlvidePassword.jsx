@@ -25,13 +25,17 @@ const OlvidePassword = () => {
     try {
       console.log(correoElectronico)
 
-      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login/olvidePassword`, correoElectronico)
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login/olvidePassword`, {correoElectronico})
       
-      console.log(data);
+      setAlerta({
+        msg:data.msg,
+        error:false
+      })
     } catch (error) {
-
-      console.log(error.response);
-      
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true
+      })
     }
   }
 

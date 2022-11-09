@@ -1,34 +1,51 @@
 import {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Alerta from '../components/alerta'
+import useAuth from '../hooks/useAuth'
 
 const Login = () => {
   
   const [correoElectronico, setCorreoElectronico] = useState('')
-  const [password, setPassword] = useState('')
+  const [contrasenia, setContrasenia] = useState('')
+  const [alerta, setAlerta] = useState({})
+
+  const {setAuth} = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([correoElectronico, password].includes('')) {
+    if ([correoElectronico, contrasenia].includes('')) {
         console.log('Todos los campos son obligatorios')
+        setAlerta({
+          msg: 'Todos los campos son obligatorios',
+          error: true
+        })
         return;
     }
 
     try {
-        const { data } = await clienteAxios.post('http://localhost:6000/login/login', { 
+        const { data } = await axios.post('http://localhost:5000/login/login', { 
           "correoElectronico": correoElectronico,
-          "contrasenia": password
+          "contrasenia": contrasenia
         });
+
+        console.log(data)
+        setAlerta({})
         localStorage.setItem('token',data.token)
         setAuth(data)
-        navigate('/admin')
+        //navigate('/admin')
     } catch (error) {
-      console.log(error)
+      setAlerta({
+        msg:error.response.data.msg,
+        error: true
+      })
     }
 
 }
   
+  const {msg} = alerta;
+
   return (
 
     <>
@@ -37,7 +54,7 @@ const Login = () => {
         <h1 className="text-sky-600 font-black text-6xl text-center">
           Inicia Sesión</h1>
       </div>
-
+      {msg && <Alerta alerta={alerta} />}
         <div>
 
           <form
@@ -46,33 +63,33 @@ const Login = () => {
             <div className="my-5">
               <label
                 className="uppercase text-gray-600 block text-xl font-bold"
-                htmlFor='email'
+                htmlFor='correoElectronico'
               >
                 Correo Electrónico
               </label>
               <input
-                id="email"
+                id="correoElectronico"
                 type="email"
                 placeholder="Escibe tu correo electrónico"
                 className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
-              // value={email}
-              // onChange={e => setEmail(e.target.value)}
+                value={correoElectronico}
+                onChange={e => setCorreoElectronico(e.target.value)}
               />
             </div>
             <div>
               <label
                 className="uppercase text-gray-600 block text-xl font-bold"
-                htmlFor='password'
+                htmlFor='contrasenia'
               >
                 Contraseña
               </label>
               <input
-                id='password'
+                id='contrasenia'
                 type="Password"
                 placeholder="Escribe tu contraseña"
                 className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
-              // value={password}
-              // onChange={e => setPassword(e.target.value)}
+                value={contrasenia}
+                onChange={e => setContrasenia(e.target.value)}
               />
             </div>
 
