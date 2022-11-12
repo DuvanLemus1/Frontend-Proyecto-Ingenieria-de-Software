@@ -33,6 +33,23 @@ const Registrar = () => {
 
     }
     
+    if (contrasenia.length<6) {
+      setAlerta({
+        msg: 'La contrasenia es muy corta, debe contener al menos 6 caracteres',
+        error: true
+      })
+      return
+
+    }
+
+    if (!contrasenia.includes('/')) {
+      setAlerta({
+        msg: 'La contrasena debe contener uno de estos caracteres: /, @',
+        error: true
+      })
+      return
+
+    }
     if(contrasenia !== contrasenia2){
       setAlerta({
         msg: 'Las contraseñas no son iguales, vuelve a escribirlas',
@@ -447,7 +464,7 @@ const Registrar = () => {
       icon: 'info',
       title: 'Términos y Condiciones',
       footer: '<b>No puedes crear una cuenta en nuestro sitio si no aceptas nuestras políticas de Registro</b>',
-      html: 'Nuestro sitio web no interviene en las transacciones y negocios de nuestros usuarios, por lo que <b>NO tomamos participación en ningún problema surgido durante la compra-venta de cualquier artículo</b>',
+      html: '1. Comportamiento gentil y educado durante los procesos de compra-venta. <br> 2. No se permite publicar la venta de armas, drogas ni material pornográfico. <br>3. Las imágenes de un producto deben corresponder al producto real que se vende. <br> 4. Todos los usuarios están sujetos a ser objeto de denuncia en caso de infringir nuestras normas. <br><br> <b>Nota: </b>Nuestro sitio web no interviene en las transacciones y negocios de nuestros usuarios, por lo que <b>NO tomamos participación en ningún problema surgido durante la compra-venta de cualquier artículo</b>',
       confirmButtonText:"Volver a registro",
       confirmButtonColor:"green",
       allowOutsideClick:false,

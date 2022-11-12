@@ -17,7 +17,7 @@ const NuevoPassword = () => {
   useEffect(()=>{
     const comprobarToken = async() =>{
       try {
-        await axios(`http://localhost:5000/login/olvide-password/${token} `)
+        await axios(`http://localhost:5000/login/comprobarPassword/${token} `)
         
         setTokenValido(true)
 
@@ -37,7 +37,7 @@ const NuevoPassword = () => {
     e.preventDefault()
 
     try {
-      const url = `http://localhost:5000/login/olvide-password/${token} `
+      const url = `http://localhost:5000/login/almacenarPassword/${token} `
 
       const {data} = await axios.post(url, {contrasenia})
       console.log(data)
