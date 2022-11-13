@@ -11,6 +11,7 @@ import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 
 
 import {AuthProvider} from './context/AuthProvider'
+import FormularioProducto from './paginas/FormularioProducto'
 
 
 function App() {
@@ -24,9 +25,12 @@ function App() {
                   <Route path = "olvide-password" element=  {<OlvidePassword/>} />
                   <Route path = "olvide-password/:token" element=  {<NuevoPassword/>} />
                   <Route path = "confirmar/:id"  element=  {<ConfirmarCuenta/>}/>
+                  <Route path = "registrarProducto"  element=  {<FormularioProducto/>}/>
               </Route>
           </Routes>
       </AuthProvider>
+
+
     </BrowserRouter>
   )
 }

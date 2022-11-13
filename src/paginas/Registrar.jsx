@@ -33,18 +33,20 @@ const Registrar = () => {
 
     }
     
-    if (contrasenia.length<6) {
+    if ((contrasenia.length<8)||(contrasenia.length>15)) {
       setAlerta({
-        msg: 'La contrasenia es muy corta, debe contener al menos 6 caracteres',
+        msg: 'La contraseña debe contener entre 8 y 15 caracteres',
         error: true
       })
       return
 
     }
 
-    if (!contrasenia.includes('/')) {
+    let regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$/!%*?&])([A-Za-z\d$@/$!%*?&]|[^ ]){8,15}$/
+    
+    if (!regExp.test(contrasenia)) {
       setAlerta({
-        msg: 'La contrasena debe contener uno de estos caracteres: /, @',
+        msg: 'Las políticas de seguridad indican que su contraseña debe contener entre 8 y 15 caracteres, en los cuales debe incluir, al menos: Un número, una letra mayúscula, una letra minúscula, un caracter especial $, @, $, !, /, %, *, ?, &, y no incluir espacios en blanco',
         error: true
       })
       return
@@ -53,6 +55,14 @@ const Registrar = () => {
     if(contrasenia !== contrasenia2){
       setAlerta({
         msg: 'Las contraseñas no son iguales, vuelve a escribirlas',
+        error: true
+      })
+      return
+    }
+
+    if(isNaN(telefono)){
+      setAlerta({
+        msg: 'El telefono debe constar de 8 digitos sin seperaciones entre ellos',
         error: true
       })
       return

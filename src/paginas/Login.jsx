@@ -112,7 +112,14 @@ const Login = () => {
               className="block text-center text-gray-500 hover:cursor-pointer hover:text-indigo-800">
               ¿Olvidaste tu cotraseña?
             </Link>
+
+            <Link to="/registrarProducto"
+              className="block text-center text-gray-500 hover:cursor-pointer hover:text-indigo-800">
+              Registra un producto
+            </Link>
+
           </nav>
+
         </div>
 
     </>
